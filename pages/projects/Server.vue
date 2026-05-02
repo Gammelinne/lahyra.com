@@ -1,58 +1,97 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
+import { computed } from "vue";
 
 const { t } = useI18n();
+
+const specs = computed(() => [
+  { key: t("Server.CPU"),     value: t("Server.CPUValue") },
+  { key: t("Server.RAM"),     value: t("Server.RAMValue") },
+  { key: t("Server.Storage"), value: t("Server.StorageValue") },
+  { key: t("Server.OS"),      value: t("Server.OSValue") },
+]);
+
+const services = computed(() => [
+  { name: t("Server.Dash"),       desc: t("Server.DashDesc") },
+  { name: t("Server.MariaDB"),    desc: t("Server.MariaDBDesc") },
+  { name: t("Server.Portfolio"),  desc: t("Server.PortfolioDesc") },
+  { name: t("Server.Watchtower"), desc: t("Server.WatchtowerDesc") },
+  { name: t("Server.GitLab"),     desc: t("Server.GitLabDesc") },
+  { name: t("Server.PrimeVue"),   desc: t("Server.PrimeVueDesc") },
+  { name: t("Server.JudoClub"),   desc: t("Server.JudoClubDesc") },
+]);
 </script>
 
 <template>
-  <div class="flex flex-col md:flex-row gap-6 my-4 mx-4 md:h-[400px] overflow-hidden">
-    <!-- Card -->
-    <Card class="w-full md:w-1/3 flex flex-col h-full">
+  <div class="flex flex-col md:flex-row gap-4 my-4 mx-4 md:h-[450px]">
+
+    <!-- Card info serveur -->
+    <Card class="w-full md:w-80 flex flex-col shrink-0">
       <template #header>
-        <h2 class="text-2xl font-bold mb-2">{{ t("Server.Title") }}</h2>
+        <div class="px-5 pt-5">
+          <h2 class="text-lg font-semibold">{{ t("Server.Title") }}</h2>
+          <p class="text-sm text-surface-400 mt-1">{{ t("Server.OverviewText") }}</p>
+        </div>
       </template>
 
-      <template #content class="flex-1 flex flex-col overflow-auto">
-        <!-- Server description -->
-        <Panel :header="t('Server.Overview')" class="mb-4 flex-shrink-0">
-          {{ t("Server.OverviewText") }}
-        </Panel>
+      <template #content>
+        <div class="flex flex-col gap-5 px-1">
 
-        <!-- Specifications -->
-        <Panel :header="t('Server.Specifications')" class="mb-4 flex-shrink-0">
-          <ul class="list-disc list-inside space-y-1">
-            <li><strong>{{ t("Server.CPU") }}:</strong> {{ t("Server.CPUValue") }}</li>
-            <li><strong>{{ t("Server.RAM") }}:</strong> {{ t("Server.RAMValue") }}</li>
-            <li><strong>{{ t("Server.Storage") }}:</strong> {{ t("Server.StorageValue") }}</li>
-            <li><strong>{{ t("Server.OS") }}:</strong> {{ t("Server.OSValue") }}</li>
-          </ul>
-        </Panel>
+          <!-- Specs -->
+          <div>
+            <p class="text-[11px] font-medium uppercase tracking-widest text-surface-400 mb-2">
+              {{ t("Server.Specifications") }}
+            </p>
+            <div class="grid grid-cols-2 gap-2">
+              <div
+                v-for="spec in specs"
+                :key="spec.key"
+                class="bg-surface-800 rounded-lg px-3 py-2"
+              >
+                <p class="text-[11px] text-surface-400">{{ spec.key }}</p>
+                <p class="text-sm font-mono font-medium mt-0.5">{{ spec.value }}</p>
+              </div>
+            </div>
+          </div>
 
-        <!-- Docker services -->
-        <Panel :header="t('Server.Docker')" class="flex-1 overflow-auto">
-          <ul class="list-disc list-inside space-y-1">
-            <li><strong>{{ t("Server.Netdata") }}:</strong> {{ t("Server.NetdataDesc") }}</li>
-            <li><strong>{{ t("Server.Pihole") }}:</strong> {{ t("Server.PiholeDesc") }}</li>
-            <li><strong>{{ t("Server.MariaDB") }}:</strong> {{ t("Server.MariaDBDesc") }}</li>
-            <li><strong>{{ t("Server.Portfolio") }}:</strong> {{ t("Server.PortfolioDesc") }}</li>
-            <li><strong>{{ t("Server.Watchtower") }}:</strong> {{ t("Server.WatchtowerDesc") }}</li>
-            <li><strong>{{ t("Server.GitLab") }}:</strong> {{ t("Server.GitLabDesc") }}</li>
-            <li><strong>{{ t("Server.PrimeVue") }}:</strong> {{ t("Server.PrimeVueDesc") }}</li>
-            <li><strong>{{ t("Server.JudoClub") }}:</strong> {{ t("Server.JudoClubDesc") }}</li>
-          </ul>
-        </Panel>
+          <Divider class="m-0" />
+
+          <!-- Services -->
+          <div>
+            <p class="text-[11px] font-medium uppercase tracking-widest text-surface-400 mb-2">
+              {{ t("Server.Docker") }}
+            </p>
+            <div class="flex flex-wrap gap-1.5">
+              <Tag
+                v-for="svc in services"
+                :key="svc.name"
+                :value="svc.name"
+                v-tooltip.top="svc.desc"
+                severity="secondary"
+                class="cursor-default"
+              />
+            </div>
+          </div>
+
+        </div>
       </template>
-
-      <Divider class="my-4" />
 
       <template #footer>
-        <p class="text-sm">{{ t("Server.Note") }}</p>
+        <p class="text-xs text-surface-400">{{ t("Server.Note") }}</p>
       </template>
     </Card>
 
-    <!-- Embed -->
-    <div class="w-full md:flex-1 h-[500px] md:h-full">
-      <embed src="https://supervision.lahyra.com/" class="w-full h-full rounded-lg shadow-md"></embed>
+    <!-- Embed supervision -->
+    <div class="flex flex-col flex-1 min-h-[400px] md:min-h-0 rounded-xl border border-surface-700 overflow-hidden">
+      <div class="flex items-center gap-2 px-3 py-2 bg-surface-800 border-b border-surface-700 shrink-0">
+        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+        <span class="text-xs text-surface-400 font-mono">supervision.lahyra.com</span>
+      </div>
+      <embed
+        src="https://supervision.lahyra.com/"
+        class="w-full flex-1"
+      />
     </div>
+
   </div>
 </template>

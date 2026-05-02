@@ -23,7 +23,7 @@ const buttons = [
   },
   {
     label: t("Home.Portfolio"),
-    href: "https://kylianrenault.lahyra.fr",
+    href: "https://kylianrenault.lahyra.com",
     icon: "pi pi-link",
     severity: "primary",
     rounded: false,

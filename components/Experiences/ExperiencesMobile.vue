@@ -5,78 +5,88 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <div class="text-center">
-    <h1 class="my-5 text-4xl font-bold">
+  <div class="px-4 py-8">
+
+    <!-- TITRE -->
+    <h1 class="text-3xl font-semibold text-center mb-3">
       {{ t("Experience.Title") }}
     </h1>
-    <p>
-      <Button
-        disabled
-        class="p-button-rounded mx-1"
-        icon="pi pi-desktop"
-        severity="success"
-      />
-      {{ t("Experience.ComputerScience") }}
-    </p>
-    <p>
-      <Button
-        disabled
-        class="p-button-rounded mx-2"
-        icon="pi pi-briefcase"
-        severity="secondary"
-      />
-      {{ t("Experience.SeasonalJobs") }}
-    </p>
-    <div class="flex flex-col space-y-5">
+
+    <!-- LÉGENDE -->
+    <div class="flex items-center justify-center gap-6 mb-8 text-sm text-surface-400">
+      <span class="flex items-center gap-2">
+        <Button disabled rounded icon="pi pi-desktop" severity="success" size="small" />
+        {{ t("Experience.ComputerScience") }}
+      </span>
+      <span class="flex items-center gap-2">
+        <Button disabled rounded icon="pi pi-briefcase" severity="info" size="small" />
+        {{ t("Experience.SeasonalJobs") }}
+      </span>
+    </div>
+
+    <!-- CARDS -->
+    <div class="flex flex-col gap-4">
       <Card
         v-for="experience in experiences"
         :key="experience.title"
-        class="mx-12 my-5"
+        class="mx-2"
       >
         <template #title>
-          <h2 class="font-bold">{{ experience.title }}</h2>
+          <div class="flex items-start justify-between gap-2">
+            <h2 class="text-base font-semibold leading-snug">{{ experience.title }}</h2>
+            <span class="text-xs text-surface-400 font-normal whitespace-nowrap pt-0.5">
+              <i class="pi pi-calendar mr-1" />{{ experience.date }}
+            </span>
+          </div>
         </template>
+
         <template #content>
-          <div class="space-y-2">
-            <Button
-              disabled
-              class="p-button-rounded"
-              :icon="
-                experience.isComputerScience
-                  ? 'pi pi-desktop'
-                  : 'pi pi-briefcase'
-              "
-              :severity="experience.isComputerScience ? 'success' : 'secondary'"
-            />
+          <!-- LOGO + META -->
+          <div class="flex items-center gap-3 mb-3">
             <img
               v-if="experience.logo"
               :src="experience.logo"
-              alt="logo"
-              class="w-24 mx-auto"
+              alt=""
+              class="w-16 h-16 object-contain rounded-md shrink-0 bg-white p-1"
             />
-            <h5>{{ experience.date }}</h5>
-            <p>{{ experience.location }}</p>
-            <p>
-              <i class="pi pi-link mr-1" />
-              <a :href="experience.website" target="_blank">{{
-                experience.website
-              }}</a>
-            </p>
-            <div
-              v-if="experience.description && experience.description.length > 0"
-            >
-              <p
-                v-for="description in experience.description.split(' -')"
-                :key="description"
-                class="my-5"
-                style="text-align: justify"
+            <div class="flex flex-col gap-1 text-xs text-surface-400 min-w-0">
+              <span>
+                <i class="pi pi-map-marker mr-1" />{{ experience.location }}
+              </span>
+              <a
+                v-if="experience.website"
+                :href="experience.website"
+                target="_blank"
+                class="truncate hover:text-surface-200 transition-colors"
               >
-                - {{ description }}
-              </p>
+                <i class="pi pi-link mr-1" />{{ experience.website }}
+              </a>
+              <span>
+                <Button
+                  disabled
+                  rounded
+                  :icon="experience.isComputerScience ? 'pi pi-desktop' : 'pi pi-briefcase'"
+                  :severity="experience.isComputerScience ? 'success' : 'info'"
+                  size="small"
+                />
+              </span>
             </div>
+          </div>
+
+          <Divider class="my-2" />
+
+          <!-- DESCRIPTION -->
+          <div class="flex flex-col gap-1.5 text-sm leading-relaxed text-left">
+            <p
+              v-for="(line, i) in experience.description.split(' -').map(l => l.trim()).filter(Boolean)"
+              :key="i"
+            >
+              - {{ line }}
+            </p>
           </div>
         </template>
       </Card>
     </div>
+
   </div>
 </template>

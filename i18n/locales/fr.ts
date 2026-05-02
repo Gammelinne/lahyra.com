@@ -28,7 +28,7 @@ export default defineI18nConfig(() => ({
   Route: {
     Home: "Accueil",
     Projects: {
-      Title: "Projets",
+      Title: "Projets Informatiques",
       Development: "Développement",
       Server: "Mon Serveur",
       Music: "Musique",
@@ -105,7 +105,7 @@ export default defineI18nConfig(() => ({
     Website: "En savoir plus",
     ComputerScience: "En lien avec l'informatique",
     SeasonalJobs: "Travail saisonnier",
-    Eleven : {
+    Eleven: {
       Title: "Alternant manageur de portefeuille de projets IT en alternance",
       Date: "Depuis 09/2025",
       Website: "https://www.agrial.com/",
@@ -424,7 +424,7 @@ export default defineI18nConfig(() => ({
       Website: "https://github.com/Gammelinne/backend-template-for-web-app",
       Description:
         "WebApp Template est un projet complet combinant un backend puissant basé sur AdonisJS et un frontend dynamique construit avec VueJS. Cette intégration offre une solution robuste pour le développement d'applications web modernes. Les fonctionnalités clés comprennent : - Authentification Sécurisée : Utilisation de JSON Web Token (JWT) pour maintenir l'état d'authentification côté client. Cela offre une sécurité renforcée sans nécessiter le stockage de l'état d'authentification sur le serveur. - Gestion Multilingue (I18n) : Le support multilingue est intégré, permettant aux utilisateurs de choisir leur langue préférée. Les textes et messages sont traduits dynamiquement, offrant une expérience utilisateur personnalisée. - Stockage Sécurisé des Images : Les utilisateurs peuvent télécharger des images, qui sont stockées de manière sécurisée sur un serveur ou un service de stockage approprié. Ceci facilite le partage d'images dans le cadre de l'utilisation de l'application. - WebSocket avec Pusher : Intégration de WebSocket pour des mises à jour en temps réel. Les fonctionnalités telles que les notifications et les conversations en direct sont améliorées avec des mises à jour instantanées, sans nécessité de rechargement de la page. - API Routes Sécurisées : Certaines routes sont protégées par des autorisations administrateur, assurant que des fonctionnalités sensibles ne sont accessibles qu'aux utilisateurs autorisés. - Le backend, construit avec AdonisJS, offre une gestion utilisateur avancée, une sécurité renforcée avec le hachage des mots de passe, une rotation automatique des journaux, et un mécanisme de limitation du taux pour prévenir le spam. Les migrations et les seeders facilitent la gestion de la base de données, tandis que l'organisation du projet suit le modèle MVC pour une maintenance et une extensibilité optimales.",
-      Embed: "https://Lahyra.fr",
+      Embed: "https://Lahyra.com",
       Route: {
         Description: "Liste des routes disponibles sur WebApp Template",
         1: {
@@ -513,6 +513,13 @@ export default defineI18nConfig(() => ({
       Technologies:
         "AdonisJS, Vue.js, Vuetify, WebSockets, JWT, Pusher, I18n, Passport, Axios, LocalStorage, Git, RESTful APIs, GraphQL, Docker, Continuous Integration, Unit Testing, End-to-End Testing",
     },
+    Six: {
+      Title: "Judo Club Ouistreham",
+      Date: "Depuis septembre 2025",
+      Website: "https://judoclubouistreham.lahyra.com/",
+      Description: "Judo Club Ouistreham est une application web développée en Nuxt.js, conçue pour gérer les activités d'un club de judo local. Cette application offre une interface conviviale pour les membres du club, les entraîneurs et les administrateurs, facilitant la gestion des inscriptions, des horaires d'entraînement, des compétitions et des communications internes. - L'application permet aux membres de s'inscrire en ligne, de consulter les horaires d'entraînement et de s'inscrire à des événements ou compétitions. Les entraîneurs peuvent gérer les groupes d'entraînement, suivre la progression des membres et communiquer avec eux via des notifications intégrées. Les administrateurs ont accès à un tableau de bord complet pour gérer les membres, les paiements, les événements et les communications. - Judo Club Ouistreham utilise une base de données MongoDB pour stocker les informations des membres, les horaires d'entraînement, les événements et les communications. L'application est hébergée sur un serveur personnel utilisant Docker, assurant une disponibilité constante et une gestion efficace des ressources. - En intégrant des fonctionnalités telles que les notifications en temps réel, les mises à jour automatiques et une interface utilisateur responsive, Judo Club Ouistreham offre une expérience utilisateur fluide et engageante pour tous les membres du club.",
+      Technologies: "Nuxt.js, Docker, Git, CI/CD, Autohosting",
+    },
   },
   Server: {
     Title: "Mon Serveur",
@@ -528,8 +535,8 @@ export default defineI18nConfig(() => ({
     OSValue: "Ubuntu Server 24.04 LTS",
     OS: "Système d'exploitation",
     Docker: "Services Docker",
-    Netdata: "Netdata",
-    NetdataDesc: "Supervision du système et des conteneurs.",
+    Dash: "Dash",
+    DashDesc: "Supervision du système et des conteneurs.",
     Pihole: "Pi-hole",
     PiholeDesc: "Blocage des publicités et trackers sur le réseau.",
     MariaDB: "MariaDB",
@@ -551,13 +558,13 @@ export default defineI18nConfig(() => ({
       Title: "Musique",
       Artist: "Mes Artistes préférés",
       Playlist: "Mes playlists",
-      Question : "Quels sont les artistes français dans la liste ?",
+      Question: "Quels sont les artistes français dans la liste ?",
       Submit: "Répondre",
-      Sucess : "Bravo",
-      Error : "Dommage",
+      Sucess: "Bravo",
+      Error: "Dommage",
       SuccessMessage: "Bravo, vous avez trouvé les artistes français !",
       ErrorMessage: "Vous n'avez pas trouvé les artistes français (Il y en a 3).",
-      
+
     },
     Games: {
       Title: "Jeux",

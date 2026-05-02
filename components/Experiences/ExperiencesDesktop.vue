@@ -5,91 +5,94 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <div>
-    <h1 class="my-5 text-4xl font-bold text-center">
+  <div class="max-w-5xl mx-auto px-6 py-10">
+
+    <!-- TITRE -->
+    <h1 class="text-4xl font-semibold text-center mb-3">
       {{ t("Experience.Title") }}
     </h1>
-    <p class="text-center">
-      <Button
-        disabled
-        class="p-button-rounded mx-1"
-        icon="pi pi-desktop"
-        :severity="'success'"
-      />
-      {{ t("Experience.ComputerScience") }}
-    </p>
-    <p class="text-center">
-      <Button
-        disabled
-        class="p-button-rounded mx-2"
-        icon="pi pi-briefcase"
-        :severity="'info'"
-      />
-      {{ t("Experience.SeasonalJobs") }}
-    </p>
-    <div v-if="experiences.length > 0">
-      <Timeline :value="experiences" align="alternate" class="my-10">
-        <template #marker="slotProps">
-          <Button
-            disabled
-            class="p-button-rounded"
-            :icon="
-              slotProps.item.isComputerScience
-                ? 'pi pi-desktop'
-                : 'pi pi-briefcase'
-            "
-            :severity="slotProps.item.isComputerScience ? 'success' : 'info'"
-          />
-        </template>
-        <template #content="slotProps">
-          <Card class="mx-8">
-            <template #title>
-              <h2 class="text-xl font-bold">{{ slotProps.item.title }}</h2>
-            </template>
-            <template #content>
-              <img
-                :src="slotProps.item.logo"
-                alt="logo"
-                :class="
-                  'w-20 mx-3' +
-                  (slotProps.item.position === 'left'
-                    ? ' float-left'
-                    : ' float-right')
-                "
-              />
-              <p class="my-1 text-md font-bold">
-                <i class="pi pi-calendar" />
-                {{ slotProps.item.date }}
-              </p>
-              <p class="text-sm my-1">
-                <i class="pi pi-map-marker" />
-                {{ slotProps.item.location }}
-              </p>
-              <p class="text-sm my-1">
-                <i class="pi pi-link mr-1" />
-                <a :href="slotProps.item.website" target="_blank">{{
-                  slotProps.item.website
-                }}</a>
-              </p>
-              <div
-                v-if="
-                  slotProps.item.description &&
-                  slotProps.item.description.length > 0
-                "
-              >
-                <p
-                  v-for="description in slotProps.item.description.split(' -')"
-                  :key="description"
-                  class="my-5"
-                  style="text-align: justify"
-                >
-                  - {{ description }}
-                </p>
-              </div>
-            </template>
-          </Card>
-        </template>
-      </Timeline>
+
+    <!-- LÉGENDE -->
+    <div class="flex items-center justify-center gap-6 mb-10 text-sm text-surface-400">
+      <span class="flex items-center gap-2">
+        <Button disabled rounded icon="pi pi-desktop" severity="success" size="small" />
+        {{ t("Experience.ComputerScience") }}
+      </span>
+      <span class="flex items-center gap-2">
+        <Button disabled rounded icon="pi pi-briefcase" severity="info" size="small" />
+        {{ t("Experience.SeasonalJobs") }}
+      </span>
     </div>
+
+    <!-- TIMELINE -->
+    <Timeline
+      v-if="experiences.length"
+      :value="experiences"
+      align="alternate"
+      class="my-10"
+    >
+      <template #marker="{ item }">
+        <Button
+          disabled
+          rounded
+          :icon="item.isComputerScience ? 'pi pi-desktop' : 'pi pi-briefcase'"
+          :severity="item.isComputerScience ? 'success' : 'info'"
+          size="small"
+        />
+      </template>
+
+      <template #content="{ item }">
+        <Card class="mx-4 mb-6 text-left" style="max-width: 400px;">
+
+          <template #title>
+            <div class="flex items-start justify-between gap-2">
+              <h2 class="text-base font-semibold leading-snug">{{ item.title }}</h2>
+              <span class="text-xs text-surface-400 font-normal whitespace-nowrap pt-0.5">
+                <i class="pi pi-calendar mr-1" />{{ item.date }}
+              </span>
+            </div>
+          </template>
+
+          <template #content>
+            <!-- LOGO + META -->
+            <div class="flex items-center gap-3 mb-3">
+              <img
+                v-if="item.logo"
+                :src="item.logo"
+                alt=""
+                class="w-16 h-16 object-contain rounded-md shrink-0 bg-white p-1"
+              />
+              <div class="flex flex-col gap-1 text-xs text-surface-400 min-w-0">
+                <span>
+                  <i class="pi pi-map-marker mr-1" />{{ item.location }}
+                </span>
+                <a
+                  v-if="item.website"
+                  :href="item.website"
+                  target="_blank"
+                  class="truncate hover:text-surface-200 transition-colors"
+                >
+                  <i class="pi pi-link mr-1" />{{ item.website }}
+                </a>
+              </div>
+            </div>
+
+            <Divider class="my-2" />
+
+            <!-- DESCRIPTION -->
+            <div class="flex flex-col gap-1.5 text-sm leading-relaxed text-left">
+              <p
+                v-for="(line, i) in item.description.split(' -').map((l: string) => l.trim()).filter(Boolean)"
+                :key="i"
+              >
+                - {{ line }}
+              </p>
+            </div>
+          </template>
+
+        </Card>
+      </template>
+    </Timeline>
+
   </div>
 </template>

@@ -1,80 +1,201 @@
 <script setup lang="ts">
 import { projects } from "@/components/translations/developments";
-const { t } = useI18n();
-const dialogVisibility = ref<Record<string, boolean>>({});
-const expandedDescription = ref<Record<number, boolean>>({});
-const pageTitle = computed(() => t("Route.Projects.Title"));
-watchEffect(() => {
-  useHead({
-    templateParams: {
-      page: pageTitle.value,
-    },
-  });
-});
-const toggleDescription = (projectValue: number) => {
-  expandedDescription.value[projectValue] =
-    !expandedDescription.value[projectValue];
-};
+import type { Project } from "@/components/translations/developments";
+
+const selectedProject = ref<Project | null>(null);
+const showDesc = ref(false);
+const showRoutes = ref(false);
+
+function openDesc(p: Project) {
+  selectedProject.value = p;
+  showDesc.value = true;
+}
+
+function openRoutes(p: Project) {
+  selectedProject.value = p;
+  showRoutes.value = true;
+}
+
+const descLines = computed(() =>
+  selectedProject.value?.description
+    .split("-")
+    .map((l) => l.trim())
+    .filter(Boolean) ?? []
+);
 </script>
 
 <template>
   <ClientOnly>
-    <h1 class="text-4xl font-bold text-center my-8">
+
+    <h1 class="text-3xl font-semibold text-center mt-10 mb-8">
       {{ $t("Project.Title") }}
     </h1>
-    <Tabs :value="0" class="my-4 mx-auto max-w-4xl" style="width: 100%">
-      <TabList>
-        <Tab v-for="project in projects" :key="project.id" :value="project.id">{{ project.title }}</Tab>
-      </TabList>
-      <TabPanels>
-        <TabPanel v-for="project in projects" :key="project.description" :value="project.id">
-          <Card>
-            <template #content>
-              <div class="my-2 text-justify">
-                <p v-for="(desc, index) in expandedDescription[project.id]
-                  ? project.description.split('-')
-                  : [project.description.split('-')[0]]" :key="index">
-                  {{ desc
-                  }}{{
-                    !expandedDescription[project.id] && index === 0 ? "..." : ""
-                  }}
-                </p>
-              </div>
-              <Button v-if="project.description.split('-').length > 1" class="my-2 mx-auto block rounded-full"
-                variant="text" size="small" :label="expandedDescription[project.id]
-                    ? ' ' + $t('Project.SeeLess')
-                    : ' ' + $t('Project.SeeMore')
-                  " :icon="expandedDescription[project.id]
-                    ? 'pi pi-chevron-up'
-                    : 'pi pi-chevron-down'
-                  " @click="toggleDescription(project.id)" />
 
-              <Carousel v-if="project.images && project.images.length > 0" :value="project.images" class="my-12"
-                :num-visible="1" :num-scroll="1" :circular="true" :autoplay-interval="3000">
-                <template #item="slotProps">
-                  <img :src="slotProps.data" alt="Project Image" class="w-full h-128 object-cover" />
+    <div class="px-4 pb-12" style="max-width: 1080px; margin: 0 auto;">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+        <Card
+          v-for="project in projects"
+          :key="project.id"
+          class="flex flex-col overflow-hidden"
+        >
+          <!-- IMAGE -->
+          <template #header>
+            <div class="overflow-hidden" style="height: 160px;">
+              <Carousel
+                v-if="project.images?.length"
+                :value="project.images"
+                :num-visible="1"
+                :num-scroll="1"
+                :circular="true"
+                :show-indicators="project.images.length > 1"
+                :show-navigators="false"
+                :autoplay-interval="3000"
+              >
+                <template #item="{ data }">
+                  <img
+                    :src="data"
+                    alt=""
+                    class="w-full object-cover"
+                    style="height: 160px;"
+                  />
                 </template>
               </Carousel>
-              <Tag v-for="tech in project.technologies.split(',')" :key="tech" :value="tech"
-                class="mx-auto my-1 scale-95" rounded />
-            </template>
-            <template #footer>
-              <Button class="my-2 mx-2" :label="$t('Project.Github')" as="a" :href="project.website" size="large"
-                target="_blank" icon="pi pi-link" />
-              <Button v-if="project.route" class="my-2 mx-2" :label="$t('Project.Route')" size="large"
-                severity="secondary" icon="pi pi-plus-circle" @click="dialogVisibility[project.id] = true" />
-            </template>
-          </Card>
-          <Dialog v-model:visible="dialogVisibility[project.id]" header="Routes"
-            @hide="dialogVisibility[project.id] = false">
-            <DataTable :value="project.route ? Object.values(project.route) : []" class="my-2">
-              <Column field="methode" header="Methode" />
-              <Column field="endpoint" header="Endpoint" />
-              <Column field="description" header="Description" />
-            </DataTable>
-          </Dialog>
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+              <div
+                v-else
+                class="w-full h-full bg-surface-800 flex items-center justify-center"
+              >
+                <i class="pi pi-image text-3xl text-surface-500" />
+              </div>
+            </div>
+          </template>
+
+          <template #title>
+            <span class="text-base font-semibold">{{ project.title }}</span>
+          </template>
+
+          <template #subtitle>
+            <p class="text-sm text-surface-400 line-clamp-2 mt-1">
+              {{ project.description.split("-")[0].trim() }}
+            </p>
+          </template>
+
+          <template #content>
+            <div class="flex flex-wrap gap-1">
+              <Tag
+                v-for="tech in project.technologies.split(',')"
+                :key="tech"
+                :value="tech.trim()"
+                severity="secondary"
+                class="text-xs"
+              />
+            </div>
+          </template>
+
+          <template #footer>
+            <div class="flex items-center justify-between">
+              <div class="flex gap-2">
+                <Button
+                  icon="pi pi-link"
+                  as="a"
+                  :href="project.website"
+                  target="_blank"
+                  size="small"
+                  severity="secondary"
+                  v-tooltip.top="$t('Project.Website')"
+                />
+                <Button
+                  v-if="project.route"
+                  icon="pi pi-sitemap"
+                  size="small"
+                  severity="secondary"
+                  v-tooltip.top="$t('Project.Routes')"
+                  @click="openRoutes(project)"
+                />
+              </div>
+              <Button
+                :label="$t('Project.SeeMore')"
+                variant="text"
+                size="small"
+                icon="pi pi-arrow-right"
+                icon-pos="right"
+                @click="openDesc(project)"
+              />
+            </div>
+          </template>
+        </Card>
+
+      </div>
+    </div>
+
+    <!-- MODALE DESCRIPTION -->
+    <Dialog
+      v-model:visible="showDesc"
+      :header="selectedProject?.title"
+      modal
+      maximizable
+      close-on-escape
+      :style="{ width: '48rem' }"
+    >
+      <div class="flex flex-col gap-3 text-sm leading-relaxed">
+        <p
+          v-for="(line, i) in descLines"
+          :key="i"
+          class="text-surface-300"
+        >
+          {{ line }}
+        </p>
+      </div>
+      <template #footer>
+        <Button
+          v-if="selectedProject?.website"
+          icon="pi pi-external-link"
+          :label="$t('Project.Website')"
+          as="a"
+          :href="selectedProject.website"
+          target="_blank"
+          size="small"
+        />
+      </template>
+    </Dialog>
+
+    <!-- MODALE ROUTES -->
+    <Dialog
+      v-model:visible="showRoutes"
+      :header="`${selectedProject?.title} — API Routes`"
+      modal
+      :style="{ width: '64rem' }"
+    >
+      <DataTable
+        v-if="selectedProject?.route"
+        :value="Object.values(selectedProject.route)"
+        size="small"
+        striped-rows
+        scroll-height="420px"
+        scrollable
+      >
+        <Column field="methode" header="Méthode" style="width: 100px;">
+          <template #body="{ data }">
+            <Tag
+              :value="data.methode"
+              :severity="
+                data.methode === 'GET'    ? 'success'
+                : data.methode === 'POST' ? 'info'
+                : data.methode === 'PUT'  ? 'warn'
+                : 'danger'
+              "
+              class="text-xs font-mono"
+            />
+          </template>
+        </Column>
+        <Column field="endpoint" header="Endpoint">
+          <template #body="{ data }">
+            <code class="text-xs">{{ data.endpoint }}</code>
+          </template>
+        </Column>
+        <Column field="description" header="Description" />
+      </DataTable>
+    </Dialog>
+
   </ClientOnly>
 </template>

@@ -35,6 +35,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     githubToken: process.env.NUXT_GITHUB_TOKEN,
     Env: process.env.NODE_ENV,
+    xboxAuthorization: process.env.NUXT_XBOX_AUTHORIZATION,
     spotifyClientId: process.env.NUXT_SPOTIFY_CLIENT_ID,
     spotifyClientSecret: process.env.NUXT_SPOTIFY_CLIENT_SECRET,
   },

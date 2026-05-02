@@ -28,7 +28,7 @@ export default defineI18nConfig(() => ({
   Route: {
     Home: "Home",
     Projects: {
-      Title: "Projects",
+      Title: "Computer Science Projects",
       Development: "Development",
       Server: "My Server",
       Music: "Music",
@@ -205,7 +205,7 @@ export default defineI18nConfig(() => ({
     SeeLess: "See less",
     SeeMore: "See more",
     One: {
-      Title: "Scoial Lahyra",
+      Title: "Social Lahyra",
       Date: "2023 - 2024",
       Website: "https://github.com/Gammelinne/Lahyra-back-V2",
       Description:
@@ -510,6 +510,13 @@ export default defineI18nConfig(() => ({
       Technologies:
         "AdonisJS, Vue.js, Vuetify, WebSockets, JWT, Pusher, I18n, Passport, Axios, LocalStorage, Git, RESTful APIs, GraphQL, Docker, Continuous Integration, Unit Testing, End-to-End Testing",
     },
+    Six: {
+      Title: "Judo Club Ouistreham",
+      Date: "Since September 2025",
+      Website: "https://judoclubouistreham.lahyra.com/",
+      Description: "Judo Club Ouistreham is a web application developed with Nuxt.js, designed to manage the activities of a local judo club. This application provides a user-friendly interface for club members, coaches, and administrators, making it easier to manage registrations, training schedules, competitions, and internal communications. - The application allows members to register online, view training schedules, and sign up for events or competitions. Coaches can manage training groups, track member progress, and communicate with them through integrated notifications. Administrators have access to a complete dashboard to manage members, payments, events, and communications. - Judo Club Ouistreham uses a MongoDB database to store member information, training schedules, events, and communications. The application is hosted on a personal server using Docker, ensuring constant availability and efficient resource management. - By integrating features such as real-time notifications, automatic updates, and a responsive user interface, Judo Club Ouistreham provides a smooth and engaging user experience for all club members.",
+      Technologies: "Nuxt.js, Docker, Git, CI/CD, Self-hosting",
+    },
   },
   Hobbies: {
     Music: {
@@ -541,8 +548,8 @@ export default defineI18nConfig(() => ({
     StorageValue: "256GB NVMe SSD",
     OSValue: "Ubuntu Server 24.04 LTS",
     Docker: "Dockerized Services",
-    Netdata: "Netdata",
-    NetdataDesc: "System and container monitoring.",
+    Dash: "Dash",
+    DashDesc: "System and container monitoring.",
     Pihole: "Pi-hole",
     PiholeDesc: "Network-wide ad and tracker blocking.",
     MariaDB: "MariaDB",

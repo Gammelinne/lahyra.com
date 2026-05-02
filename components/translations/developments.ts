@@ -9,6 +9,11 @@ import portfolio2 from "@/assets/images/Portfolio/portfolio2.png";
 
 import bot from "@/assets/images/Bot/bot.png";
 
+import template from "@/assets/images/Template/template.png";
+
+import judoclubouistreham from "@/assets/images/Judoclubouistreham/judoclubouistreham.png";
+import judoclubouistreham2 from "@/assets/images/Judoclubouistreham/judoclubouistreham2.png";
+
 export interface Route {
   methode: string;
   endpoint: string;
@@ -45,7 +50,7 @@ export const projects: ComputedRef<Project[]> = computed(() => {
           },
         ]),
       ),
-      images: [lahyra,lahyra],
+      images: [lahyra],
     },
     {
       id: 1,
@@ -69,7 +74,7 @@ export const projects: ComputedRef<Project[]> = computed(() => {
       description: t("Project.Four.Description"),
       technologies: t("Project.Four.Technologies"),
       website: t("Project.Four.Website"),
-      images: [bot,bot],
+      images: [bot],
     },
     {
       id: 4,
@@ -87,7 +92,15 @@ export const projects: ComputedRef<Project[]> = computed(() => {
           },
         ]),
       ),
-      embedded: t("Project.Five.Embed"),
+      images: [template],
     },
+    {
+      id: 5,
+      title: t("Project.Six.Title"),
+      description: t("Project.Six.Description"),
+      technologies: t("Project.Six.Technologies"),
+      website: t("Project.Six.Website"),
+      images: [judoclubouistreham, judoclubouistreham2],
+    }
   ];
 });
