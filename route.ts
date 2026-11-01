@@ -42,7 +42,7 @@ export const getRoutes = (router: Router, t: (key: string) => string) => [
 
     ]
   },
-  {
+  /*{
     label: t("Route.Hobbies.Title"),
     icon: "pi pi-fw pi-folder",
     items: [
@@ -61,5 +61,5 @@ export const getRoutes = (router: Router, t: (key: string) => string) => [
         },
       }
     ],
-  },
+  },*/
 ];

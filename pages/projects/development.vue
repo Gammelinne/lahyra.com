@@ -18,7 +18,7 @@ function openRoutes(p: Project) {
 
 const descLines = computed(() =>
   selectedProject.value?.description
-    .split("-")
+    .split(" - ")
     .map((l) => l.trim())
     .filter(Boolean) ?? []
 );
@@ -76,7 +76,7 @@ const descLines = computed(() =>
 
           <template #subtitle>
             <p class="text-sm text-surface-400 line-clamp-2 mt-1">
-              {{ project.description.split("-")[0].trim() }}
+              {{ project.description.split(" - ")[0].trim() }}
             </p>
           </template>
 

@@ -1,5 +1,4 @@
 import logoCesi from "@/assets/images/logo/logocesi.jpg";
-import logoUniversity from "@/assets/images/logo/Normandieuniversite.jpeg";
 
 interface Education {
   id: number;
@@ -40,23 +39,6 @@ export const educations: ComputedRef<Education[]> = computed(() => {
       date: t("Education.Three.Date"),
       description: t("Education.Three.Description"),
       logo: logoCesi,
-    },
-    {
-      id: 4,
-      title: t("Education.Two.Title"),
-      location: t("Education.Two.Location"),
-      website: t("Education.Two.Website"),
-      date: t("Education.Two.Date"),
-      description: t("Education.Two.Description"),
-      logo: logoUniversity,
-    },
-    {
-      id: 5,
-      title: t("Education.One.Title"),
-      location: t("Education.One.Location"),
-      website: t("Education.One.Website"),
-      date: t("Education.One.Date"),
-      description: t("Education.One.Description"),
     },
   ];
 });

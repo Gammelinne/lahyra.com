@@ -22,13 +22,6 @@ const buttons = [
     rounded: false,
   },
   {
-    label: t("Home.Portfolio"),
-    href: "https://kylianrenault.lahyra.com",
-    icon: "pi pi-link",
-    severity: "primary",
-    rounded: false,
-  },
-  {
     label: "",
     href: "https://github.com/Gammelinne",
     icon: "pi pi-github",
@@ -44,7 +37,7 @@ const buttons = [
   },
   {
     label: "",
-    href: "mailto:kylian.noe14@gmail.com",
+    href: "mailto:contact@lahyra.com",
     icon: "pi pi-envelope",
     severity: "secondary",
     rounded: true,

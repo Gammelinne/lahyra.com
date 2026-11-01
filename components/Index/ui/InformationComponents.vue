@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const email = "kylian.renault@viacesi.fr";
+const email = "contact@lahyra.com";
 const infoColumns: Ref<{ text: string; icon: string }[][]> = ref([
   [
     { text: "Home.Infos.Name", icon: "user" },
@@ -14,6 +14,7 @@ const infoColumns: Ref<{ text: string; icon: string }[][]> = ref([
   [
     { text: "Home.Infos.Language", icon: "globe" },
     { text: "Home.Infos.Driving", icon: "car" },
+    { text: "Home.Infos.Company", icon: "building" },
   ],
 ]);
 </script>

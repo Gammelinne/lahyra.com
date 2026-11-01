@@ -12,18 +12,6 @@ const { t } = useI18n();
       {{ t("Experience.Title") }}
     </h1>
 
-    <!-- LÉGENDE -->
-    <div class="flex items-center justify-center gap-6 mb-10 text-sm text-surface-400">
-      <span class="flex items-center gap-2">
-        <Button disabled rounded icon="pi pi-desktop" severity="success" size="small" />
-        {{ t("Experience.ComputerScience") }}
-      </span>
-      <span class="flex items-center gap-2">
-        <Button disabled rounded icon="pi pi-briefcase" severity="info" size="small" />
-        {{ t("Experience.SeasonalJobs") }}
-      </span>
-    </div>
-
     <!-- TIMELINE -->
     <Timeline
       v-if="experiences.length"
